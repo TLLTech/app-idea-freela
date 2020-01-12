@@ -1,6 +1,6 @@
 import React from "react";
 import { FlatList } from "react-native";
-import Icon from "@expo/vector-icons/Ionicons";
+import Icon from "@expo/vector-icons/MaterialIcons";
 
 import {
   Container,
@@ -20,28 +20,32 @@ import {
   ContentFooterReviews
 } from "./styles";
 
-export default function Dashboard() {
-  const data = [1, 2, 4, 5];
+export default function Dashboard({ navigation }) {
+  const data = [1, 2, 3, 4, 5];
   const dataList = [1, 2, 3];
+
+  function handleMenuDrawer() {
+    navigation.openDrawer();
+  }
 
   return (
     <Container>
       <Header>
-        <ButtonDrawer>
-          <Icon name="md-menu" size={32} color="#000" />
+        <ButtonDrawer onPress={handleMenuDrawer}>
+          <Icon name="menu" size={32} color="#000" />
         </ButtonDrawer>
         <HeaderTitle>RANKING GENERAL</HeaderTitle>
         <ButtonBurguer>
-          <Icon name="md-menu" size={32} color="#000" />
+          <Icon name="filter-list" size={32} color="#000" />
         </ButtonBurguer>
         <ButtonSearch>
-          <Icon name="md-search" size={32} color="#000" />
+          <Icon name="search" size={32} color="#000" />
         </ButtonSearch>
       </Header>
       <Content>
         <FlatList
           data={dataList}
-          keyExtractor={item => toString(item)}
+          keyExtractor={item => String(item)}
           renderItem={({ item }) => (
             <ContentListView key={item}>
               <ContetnListImage />
@@ -49,7 +53,7 @@ export default function Dashboard() {
                 <Title>Nombre Tipster 1</Title>
                 <ContentStart>
                   {data.map(item => (
-                    <Icon key={item} name="md-star" size={32} color="#979D4C" />
+                    <Icon key={item} name="star" size={32} color="#979D4C" />
                   ))}
                 </ContentStart>
                 <ContentFooter>
@@ -63,4 +67,8 @@ export default function Dashboard() {
       </Content>
     </Container>
   );
+}
+
+{
+  /* <Icon key={item} name="star-border" size={32} color="#979D4C" /> */
 }
