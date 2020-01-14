@@ -1,5 +1,5 @@
-import React from "react";
-import { FlatList } from "react-native";
+import React, { useState } from "react";
+import { FlatList, Text } from "react-native";
 import Icon from "@expo/vector-icons/MaterialIcons";
 
 import {
@@ -17,15 +17,31 @@ import {
   ContentStart,
   ContentFooter,
   ContentFooterTextValue,
-  ContentFooterReviews
+  ContentFooterReviews,
+  ModalContent,
+  TitleModal,
+  SelectText,
+  HeaderModal
 } from "./styles";
+
+import ModalFilter from "../../components/Modal";
 
 export default function Dashboard({ navigation }) {
   const data = [1, 2, 3, 4, 5];
   const dataList = [1, 2, 3];
 
+  const [visible, setVisible] = useState(false);
+
   function handleMenuDrawer() {
     navigation.openDrawer();
+  }
+
+  function handleOpenModal() {
+    setVisible(true);
+  }
+
+  function handleCloseModal() {
+    setVisible(false);
   }
 
   return (
@@ -35,13 +51,33 @@ export default function Dashboard({ navigation }) {
           <Icon name="menu" size={32} color="#000" />
         </ButtonDrawer>
         <HeaderTitle>RANKING GENERAL</HeaderTitle>
-        <ButtonBurguer>
+        <ButtonBurguer onPress={handleOpenModal}>
           <Icon name="filter-list" size={32} color="#000" />
         </ButtonBurguer>
         <ButtonSearch>
           <Icon name="search" size={32} color="#000" />
         </ButtonSearch>
       </Header>
+
+      {/* Modal para filter */}
+
+      <ModalFilter visible={visible}>
+        <ModalContent>
+          <HeaderModal>
+            <TitleModal>Select desired filter</TitleModal>
+            <Icon
+              onPress={handleCloseModal}
+              name="close"
+              size={30}
+              color="#000"
+            />
+          </HeaderModal>
+          <SelectText> Higher average calification - HAC</SelectText>
+          <SelectText> Most recent - MC</SelectText>
+          <SelectText>And so on - ADO</SelectText>
+        </ModalContent>
+      </ModalFilter>
+
       <Content>
         <FlatList
           data={dataList}

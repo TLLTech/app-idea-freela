@@ -77,3 +77,40 @@ export const ContentFooterReviews = styled.Text`
   color: #4e70a3;
   font-weight: 500;
 `;
+
+export const ModalContent = styled.View`
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+  /* height: ; */
+  height: 200px;
+  margin: 0 20px;
+  width: 90%;
+`;
+
+export const HeaderModal = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  /* align-self: center; */
+  margin: 10px;
+`;
+
+export const TitleModal = styled.Text`
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  align-self: center;
+  /* margin-right: 20px; */
+  /* alin */
+`;
+
+export const SelectText = styled.Text`
+  font-size: 18px;
+  font-weight: 700;
+  align-self: flex-start;
+  margin-top: 10px;
+  margin-left: 30px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 5px;
+`;
