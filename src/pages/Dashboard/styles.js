@@ -114,3 +114,13 @@ export const SelectText = styled.Text`
   border-radius: 5px;
   padding: 5px;
 `;
+
+export const InputSearch = styled.TextInput`
+  height: 50px;
+  width: 90%;
+  border-radius: 15px;
+  background-color: ${({ visible }) =>
+    visible ? "rgba(255, 255, 255, 0.70)" : "rgba(255, 255, 255, 0.0)"};
+  padding: 10px;
+  align-self: center;
+`;

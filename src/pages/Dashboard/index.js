@@ -21,7 +21,8 @@ import {
   ModalContent,
   TitleModal,
   SelectText,
-  HeaderModal
+  HeaderModal,
+  InputSearch
 } from "./styles";
 
 import ModalFilter from "../../components/Modal";
@@ -31,6 +32,7 @@ export default function Dashboard({ navigation }) {
   const dataList = [1, 2, 3];
 
   const [visible, setVisible] = useState(false);
+  const [visibleInput, setVisibleInput] = useState(true);
 
   function handleMenuDrawer() {
     navigation.openDrawer();
@@ -58,6 +60,8 @@ export default function Dashboard({ navigation }) {
           <Icon name="search" size={32} color="#000" />
         </ButtonSearch>
       </Header>
+
+      <InputSearch visible={visibleInput} />
 
       {/* Modal para filter */}
 
