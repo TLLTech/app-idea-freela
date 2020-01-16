@@ -8,7 +8,7 @@ export const Container = styled.SafeAreaView`
 export const Content = styled.View`
   flex: 1;
   background: rgba(255, 255, 255, 0.5);
-  margin: 40px 20px;
+  margin: 5px 20px;
   border-radius: 5px;
 `;
 

@@ -4,11 +4,6 @@ import Icon from "@expo/vector-icons/MaterialIcons";
 
 import {
   Container,
-  Header,
-  ButtonBurguer,
-  ButtonDrawer,
-  ButtonSearch,
-  HeaderTitle,
   Content,
   ContentView,
   ContentListView,
@@ -18,14 +13,10 @@ import {
   ContentFooter,
   ContentFooterTextValue,
   ContentFooterReviews,
-  ModalContent,
-  TitleModal,
-  SelectText,
-  HeaderModal,
   InputSearch
 } from "./styles";
 
-import ModalFilter from "../../components/Modal";
+import Header from "../../components/Header";
 
 export default function Dashboard({ navigation }) {
   const data = [1, 2, 3, 4, 5];
@@ -34,54 +25,12 @@ export default function Dashboard({ navigation }) {
   const [visible, setVisible] = useState(false);
   const [visibleInput, setVisibleInput] = useState(true);
 
-  function handleMenuDrawer() {
-    navigation.openDrawer();
-  }
-
-  function handleOpenModal() {
-    setVisible(true);
-  }
-
-  function handleCloseModal() {
-    setVisible(false);
-  }
-
   return (
     <Container>
-      <Header>
-        <ButtonDrawer onPress={handleMenuDrawer}>
-          <Icon name="menu" size={32} color="#000" />
-        </ButtonDrawer>
-        <HeaderTitle>RANKING GENERAL</HeaderTitle>
-        <ButtonBurguer onPress={handleOpenModal}>
-          <Icon name="filter-list" size={32} color="#000" />
-        </ButtonBurguer>
-        <ButtonSearch>
-          <Icon name="search" size={32} color="#000" />
-        </ButtonSearch>
-      </Header>
+      {/* Header da Aplicação */}
+      <Header navigation={navigation} title="RANKING GENERAL" />
 
       <InputSearch visible={visibleInput} />
-
-      {/* Modal para filter */}
-
-      <ModalFilter visible={visible}>
-        <ModalContent>
-          <HeaderModal>
-            <TitleModal>Select desired filter</TitleModal>
-            <Icon
-              onPress={handleCloseModal}
-              name="close"
-              size={30}
-              color="#000"
-            />
-          </HeaderModal>
-          <SelectText> Higher average calification - HAC</SelectText>
-          <SelectText> Most recent - MC</SelectText>
-          <SelectText>And so on - ADO</SelectText>
-        </ModalContent>
-      </ModalFilter>
-
       <Content>
         <FlatList
           data={dataList}

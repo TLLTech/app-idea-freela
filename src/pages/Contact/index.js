@@ -3,9 +3,13 @@ import { Text } from "react-native";
 
 import { Container } from "./styles";
 
-export default function Contact() {
+import Header from "../../components/Header";
+
+export default function Contact({ navigation }) {
   return (
     <Container>
+      <Header navigation={navigation} title="Contacts" />
+
       <Text>Contact</Text>
     </Container>
   );

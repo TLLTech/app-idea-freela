@@ -20,12 +20,16 @@ import {
   ListProfileComent
 } from "./styles";
 
-export default function RequestProfile() {
+import Header from "../../components/Header";
+
+export default function RequestProfile({ navigation }) {
   const data = [1, 2, 3, 4, 5];
   const dataList = [1, 2, 3];
 
   return (
     <Container>
+      <Header navigation={navigation} title="Request Profile" />
+
       <Content>
         <Title>ISABEL</Title>
         <ContetnListImage />

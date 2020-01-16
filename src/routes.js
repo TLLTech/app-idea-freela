@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import RequestProfile from "./pages/RequestProfile";
 import Contact from "./pages/Contact";
 import Logout from "./pages/Logout";
+import Admin from "./pages/Admin";
 
 export default createAppContainer(
   createSwitchNavigator({
@@ -18,6 +19,7 @@ export default createAppContainer(
         Home: Dashboard,
         RequestProfile,
         Contact,
+        Admin,
         Logout
       },
       {
