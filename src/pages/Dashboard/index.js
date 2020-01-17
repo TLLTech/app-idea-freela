@@ -25,6 +25,10 @@ export default function Dashboard({ navigation }) {
   const [visible, setVisible] = useState(false);
   const [visibleInput, setVisibleInput] = useState(true);
 
+  function handleProfile() {
+    navigation.navigate("RequestProfile");
+  }
+
   return (
     <Container>
       {/* Header da Aplicação */}
@@ -36,13 +40,13 @@ export default function Dashboard({ navigation }) {
           data={dataList}
           keyExtractor={item => String(item)}
           renderItem={({ item }) => (
-            <ContentListView key={item}>
+            <ContentListView key={item} onPress={handleProfile}>
               <ContetnListImage />
               <ContentView>
                 <Title>Nombre Tipster 1</Title>
                 <ContentStart>
                   {data.map(item => (
-                    <Icon key={item} name="star" size={32} color="#979D4C" />
+                    <Icon key={item} name="star" size={32} color="#ffd203" />
                   ))}
                 </ContentStart>
                 <ContentFooter>

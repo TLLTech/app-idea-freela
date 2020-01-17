@@ -14,16 +14,16 @@ import Admin from "./pages/Admin";
 export default createAppContainer(
   createSwitchNavigator({
     SignIn,
+    RequestProfile,
     Dashboard: createDrawerNavigator(
       {
         Home: Dashboard,
-        RequestProfile,
         Contact,
         Admin,
         Logout
       },
       {
-        drawerBackgroundColor: "#5A5AEC",
+        drawerBackgroundColor: "#1a9ae2",
         drawerType: "front",
         hideStatusBar: false,
         contentOptions: {

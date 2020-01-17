@@ -3,7 +3,7 @@ import { RectButton } from "react-native-gesture-handler";
 
 export const Container = styled.SafeAreaView`
   flex: 1;
-  background: #5a5aec;
+  background: #1a9ae2;
 `;
 
 export const Header = styled.View`
@@ -35,7 +35,7 @@ export const Content = styled.View`
   border-radius: 10px;
 `;
 
-export const ContentListView = styled.View`
+export const ContentListView = styled(RectButton)`
   flex-direction: row;
   margin: 20px 20px;
 `;

@@ -5,7 +5,7 @@ export const Container = styled.SafeAreaView`
   flex: 1;
   justify-content: center;
   align-items: center;
-  background: #5a5aec;
+  background: #1a9ae2;
 `;
 
 export const TextInit = styled.Text`

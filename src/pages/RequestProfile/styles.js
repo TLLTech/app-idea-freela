@@ -1,13 +1,15 @@
 import styled from "styled-components/native";
+import Icon from "@expo/vector-icons/MaterialIcons";
+import { RectButton } from "react-native-gesture-handler";
 
 export const Container = styled.SafeAreaView`
   flex: 1;
-  background: #5a5aec;
+  background: #1a9ae2;
 `;
 
 export const Content = styled.View`
   flex: 1;
-  background: rgba(255, 255, 255, 0.5);
+  background: #f1f1f1;
   margin: 5px 20px;
   border-radius: 5px;
 `;
@@ -16,8 +18,8 @@ export const Title = styled.Text`
   font-size: 20px;
   color: #000;
   font-weight: bold;
-  margin-top: 20px;
   text-align: center;
+  margin-left: 120px;
 `;
 
 export const ContetnListImage = styled.View`
@@ -75,6 +77,7 @@ export const ListProfileStar = styled.View`
 
 export const ListProfileView = styled.View`
   margin-left: 10px;
+  flex-direction: row;
 `;
 
 export const ListProfileName = styled.Text`
@@ -86,3 +89,41 @@ export const ListProfileComent = styled.Text`
   font-size: 15px;
   font-weight: 600;
 `;
+
+export const LikesText = styled.Text`
+  font-size: 16px;
+  color: #ccc;
+`;
+
+export const ViewList = styled.View`
+  flex-direction: column;
+`;
+
+export const LikeView = styled.View`
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+`;
+
+export const HeaderView = styled.View`
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 20px;
+`;
+
+export const Icons = styled(Icon)`
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-self: flex-start;
+  margin-left: 80px;
+`;
+
+export const Header = styled.SafeAreaView`
+  margin-top: 30px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  /* margin: 0px; */
+`;
+
+export const ButtonArrowLeft = styled(RectButton)``;

@@ -17,25 +17,42 @@ import {
   ListProfileView,
   ListProfileName,
   ListProfileStar,
-  ListProfileComent
+  ListProfileComent,
+  LikesText,
+  ViewList,
+  LikeView,
+  HeaderView,
+  Icons,
+  Header,
+  ButtonArrowLeft
 } from "./styles";
 
-import Header from "../../components/Header";
+// import Header from "../;../components/Header";
 
 export default function RequestProfile({ navigation }) {
   const data = [1, 2, 3, 4, 5];
   const dataList = [1, 2, 3];
 
+  function handleGoBack() {
+    navigation.navigate('Dashboard')
+  }
   return (
     <Container>
-      <Header navigation={navigation} title="Request Profile" />
-
+      {/* <Header navigation={navigation} title="Request Profile" /> */}
+      <Header>
+        <ButtonArrowLeft onPress={handleGoBack}>
+          <Icon name="arrow-back" size={30} color="#fff" />
+        </ButtonArrowLeft>
+      </Header>
       <Content>
-        <Title>ISABEL</Title>
+        <HeaderView>
+          <Title>ISABEL</Title>
+          <Icons name="more-vert" size={30} color="#000" />
+        </HeaderView>
         <ContetnListImage />
         <StarView>
           {data.map(item => (
-            <Icon key={item} name="star" size={40} color="#979D4C" />
+            <Icon key={item} name="star" size={40} color="#ffd203" />
           ))}
         </StarView>
         <ContentFooter>
@@ -52,14 +69,20 @@ export default function RequestProfile({ navigation }) {
             <ListProfile>
               <ListProfileImage />
               <ListProfileView>
-                <ListProfileStar>
-                  {data.map(item => (
-                    <Icon key={item} name="star" size={35} color="#979D4C" />
-                  ))}
-                </ListProfileStar>
+                <ViewList>
+                  <ListProfileStar>
+                    {data.map(item => (
+                      <Icon key={item} name="star" size={35} color="#ffd203" />
+                    ))}
+                  </ListProfileStar>
 
-                <ListProfileName>Nombre</ListProfileName>
-                <ListProfileComent>Opnion del usuario</ListProfileComent>
+                  <ListProfileName>Nombre</ListProfileName>
+                  <ListProfileComent>Opnion del usuario</ListProfileComent>
+                </ViewList>
+                <LikeView>
+                  <Icon name="thumb-up" size={25} color="#ccc" />
+                  <LikesText>25</LikesText>
+                </LikeView>
               </ListProfileView>
             </ListProfile>
           )}
