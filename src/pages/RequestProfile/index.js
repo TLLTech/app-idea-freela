@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { FlatList } from "react-native";
 import Icon from "@expo/vector-icons/MaterialIcons";
 import { RectButton } from "react-native-gesture-handler";
+import CircleCheckBox from "react-native-circle-checkbox";
 
 import {
   Container,
@@ -24,18 +25,49 @@ import {
   HeaderView,
   Icons,
   Header,
-  ButtonArrowLeft
+  ButtonArrowLeft,
+  ButtonInfo,
+  ButtonInfoText,
+  TitleModal,
+  SelectRelevane,
+  ButtonAppli,
+  ButtonView,
+  ButtonText,
+  ButtonCheckCircle,
+  CircleCheck
 } from "./styles";
 
 // import Header from "../;../components/Header";
+import ModalFilterProfile from "../../components/ModalFilterProfile";
+import ModalFilterProfileComment from "../../components/ModalFilterProfileComment";
 
 export default function RequestProfile({ navigation }) {
   const data = [1, 2, 3, 4, 5];
   const dataList = [1, 2, 3];
 
+  const [visible, setVisible] = useState(false);
+  const [visibleRele, setVisibleRele] = useState(false);
+
   function handleGoBack() {
-    navigation.navigate('Dashboard')
+    navigation.navigate("Dashboard");
   }
+
+  function handleInfoModal() {
+    setVisible(true);
+  }
+
+  function handleCloseModal() {
+    setVisible(false);
+  }
+
+  function handleFilter() {
+    setVisibleRele(true);
+  }
+
+  function closeModalFilter() {
+    setVisibleRele(false);
+  }
+
   return (
     <Container>
       {/* <Header navigation={navigation} title="Request Profile" /> */}
@@ -47,7 +79,23 @@ export default function RequestProfile({ navigation }) {
       <Content>
         <HeaderView>
           <Title>ISABEL</Title>
-          <Icons name="more-vert" size={30} color="#000" />
+          <Icons
+            name="more-vert"
+            size={30}
+            color="#000"
+            onPress={handleInfoModal}
+          />
+          <ModalFilterProfile visible={visible}>
+            <ButtonInfoText onPress={handleCloseModal}>
+              Información
+            </ButtonInfoText>
+            <ButtonInfoText onPress={handleCloseModal}>
+              Dar valoración
+            </ButtonInfoText>
+            <ButtonInfoText onPress={handleCloseModal}>
+              Ir al canal
+            </ButtonInfoText>
+          </ModalFilterProfile>
         </HeaderView>
         <ContetnListImage />
         <StarView>
@@ -58,9 +106,36 @@ export default function RequestProfile({ navigation }) {
         <ContentFooter>
           <ValueNote>9.6/10</ValueNote>
           <ReviewsText>5.425 reviews</ReviewsText>
-          <RectButton>
+          <RectButton onPress={handleFilter}>
             <Icon name="sort" size={30} color="#000" />
           </RectButton>
+
+          {/* Modal Filter */}
+          <ModalFilterProfileComment visible={visibleRele}>
+            <TitleModal>Ordenar resñas por</TitleModal>
+            <ButtonCheckCircle>
+              <CircleCheck
+                checked={false}
+                onToggle={checked => console.log("My state is: ", checked)}
+              />
+              <SelectRelevane>Más relevantes</SelectRelevane>
+            </ButtonCheckCircle>
+            <ButtonCheckCircle>
+              <CircleCheck
+                checked={true}
+                onToggle={checked => console.log("My state is: ", checked)}
+              />
+              <SelectRelevane>Más recentes</SelectRelevane>
+            </ButtonCheckCircle>
+            <ButtonView>
+              <ButtonAppli>
+                <ButtonText onPress={closeModalFilter}>CANCELAR</ButtonText>
+              </ButtonAppli>
+              <ButtonAppli>
+                <ButtonText onPress={closeModalFilter}>APLICAR</ButtonText>
+              </ButtonAppli>
+            </ButtonView>
+          </ModalFilterProfileComment>
         </ContentFooter>
         <FlatList
           data={dataList}

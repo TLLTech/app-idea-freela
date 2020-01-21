@@ -1,6 +1,7 @@
 import styled from "styled-components/native";
 import Icon from "@expo/vector-icons/MaterialIcons";
 import { RectButton } from "react-native-gesture-handler";
+import CircleCheckBox from "react-native-circle-checkbox";
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -127,3 +128,55 @@ export const Header = styled.SafeAreaView`
 `;
 
 export const ButtonArrowLeft = styled(RectButton)``;
+
+export const ButtonInfo = styled(RectButton)`
+  margin: 5px;
+`;
+
+export const ButtonInfoText = styled.Text`
+  font-size: 18px;
+  color: #000;
+  font-weight: 600;
+  margin: 8px;
+`;
+
+export const TitleModal = styled.Text`
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 15px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+`;
+
+export const SelectRelevane = styled.Text`
+  font-size: 18px;
+  font-weight: 600;
+  margin-left: 40px;
+  margin-top: 5px;
+  color: rgba(155, 167, 154, 0.74);
+`;
+
+export const ButtonView = styled.View`
+  flex-direction: row;
+  align-self: flex-end;
+  justify-content: space-around;
+`;
+
+export const ButtonCancel = styled(RectButton)``;
+
+export const ButtonText = styled.Text`
+  font-size: 16px;
+  color: #67a05e;
+`;
+
+export const ButtonAppli = styled(RectButton)`
+  margin-right: 20px;
+  margin-top: 20px;
+`;
+
+export const ButtonCheckCircle = styled.View`
+  flex-direction: row;
+  margin-left: 20px;
+`;
+
+export const CircleCheck = styled(CircleCheckBox)``;
