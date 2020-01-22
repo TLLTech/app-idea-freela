@@ -1,5 +1,6 @@
 import React from "react";
 import { Text } from "react-native";
+import Icon from "@expo/vector-icons/MaterialIcons";
 
 import { Container } from "./styles";
 
@@ -16,5 +17,6 @@ export default function Contact({ navigation }) {
 }
 
 Contact.navigationOptions = {
-  drawerLabel: "Contact"
+  drawerLabel: "Contact",
+  drawerIcon: ({ tintColor }) => <Icon name="send" size={30} color="#000" />
 };

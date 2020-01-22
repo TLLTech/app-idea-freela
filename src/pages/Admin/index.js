@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Text, View, ScrollView, ActivityIndicator } from "react-native";
+import Icon from "@expo/vector-icons/MaterialIcons";
 
 import {
   Container,
@@ -60,3 +61,9 @@ export default function Admin({ navigation }) {
     </Container>
   );
 }
+
+Admin.navigationOptions = {
+  drawerIcon: ({ tintColor }) => (
+    <Icon name="assignment-ind" size={30} color="#000" />
+  )
+};

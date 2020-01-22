@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import Icon from "@expo/vector-icons/MaterialIcons";
 
 import {
@@ -38,8 +38,13 @@ export default function HeaderComponent({ navigation, title }) {
           <Icon name="menu" size={32} color="#fff" />
         </ButtonDrawer>
         <HeaderTitle>{title}</HeaderTitle>
-        <ButtonBurguer onPress={handleOpenModal}>
-          <Icon name="filter-list" size={32} color="#fff" />
+        <ButtonBurguer>
+          <Icon
+            name="filter-list"
+            size={32}
+            color="#fff"
+            onPress={handleOpenModal}
+          />
         </ButtonBurguer>
         <ButtonSearch>
           <Icon name="search" size={32} color="#fff" />

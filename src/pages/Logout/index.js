@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ActivityIndicator } from "react-native";
+import Icon from "@expo/vector-icons/MaterialIcons";
 
 import { Container } from "./styles";
 
@@ -24,3 +25,7 @@ export default function Logout({ navigation }) {
     </Container>
   );
 }
+
+Logout.navigationOptions = {
+  drawerIcon: ({ tintColor }) => <Icon name="input" size={30} color="#000" />
+};

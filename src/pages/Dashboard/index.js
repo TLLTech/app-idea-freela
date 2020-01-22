@@ -62,6 +62,6 @@ export default function Dashboard({ navigation }) {
   );
 }
 
-{
-  /* <Icon key={item} name="star-border" size={32} color="#979D4C" /> */
-}
+Dashboard.navigationOptions = {
+  drawerIcon: ({ tintColor }) => <Icon name="home" size={30} color="#000" />
+};
