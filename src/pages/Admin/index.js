@@ -14,6 +14,7 @@ import {
 } from "./styles";
 
 import Header from "../../components/Header";
+import api from "../../services/api";
 
 export default function Admin({ navigation }) {
   const [name, setName] = useState("");
@@ -21,6 +22,22 @@ export default function Admin({ navigation }) {
   const [desc, setDesc] = useState("");
   const [loading, setLoading] = useState(false);
 
+  async function handleRegister() {
+    try { 
+      const ref = api.firestore().collection('users')]
+
+      await ref.add({
+        nome: name,
+        email: email,
+        desc: desc
+      })
+
+      setName('');
+      setEmail('');
+    }catch(err){  
+      console.log(err)
+    }
+  }
   return (
     <Container>
       <Header navigation={navigation} title="ADD USER" />
@@ -50,7 +67,7 @@ export default function Admin({ navigation }) {
             onChangeText={setDesc}
           />
         </ContentInput>
-        <ButtonRegister>
+        <ButtonRegister onPress={handleRegister}>
           {loading ? (
             <ActivityIndicator size={25} color="#fff" />
           ) : (
