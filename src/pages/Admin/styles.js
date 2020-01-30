@@ -17,13 +17,20 @@ export const Content = styled.ScrollView`
   align-self: center;
 `;
 
-export const ImageProfile = styled.View`
+export const ImageProfile = styled(RectButton)`
   height: 100px;
   width: 100px;
   border-radius: 50px;
   background: #ccc;
   align-self: center;
   margin-top: 30px;
+`;
+
+export const ImageView = styled.Image`
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  align-self: center;
 `;
 
 export const ContentInput = styled.View`
