@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FlatList } from "react-native";
 import Icon from "@expo/vector-icons/MaterialIcons";
 import { RectButton } from "react-native-gesture-handler";
@@ -36,17 +36,49 @@ import {
   ButtonCheckCircle,
   CircleCheck
 } from "./styles";
+import api from "../../services/api";
 
 // import Header from "../;../components/Header";
 import ModalFilterProfile from "../../components/ModalFilterProfile";
 import ModalFilterProfileComment from "../../components/ModalFilterProfileComment";
 
 export default function RequestProfile({ navigation }) {
+  const key = navigation.getParam("key");
+  console.log(key);
+
   const data = [1, 2, 3, 4, 5];
   const dataList = [1, 2, 3];
 
   const [visible, setVisible] = useState(false);
   const [visibleRele, setVisibleRele] = useState(false);
+  const [dataProfile, setDataProfile] = useState([]);
+  const [name, setName] = useState("");
+
+  useEffect(() => {
+    loadProfile();
+  }, []);
+
+  function loadProfile() {
+    try {
+      api
+        .database()
+        .ref("users")
+        .child(key)
+        .once("value", snapshot => {
+          const listUsers = [];
+
+          snapshot.forEach(childItem => {
+            let item = childItem.val();
+            listUsers.push(item);
+          });
+
+          setName(listUsers.name);
+          setDataProfile(listUsers);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   function handleGoBack() {
     navigation.navigate("Dashboard");
@@ -78,7 +110,7 @@ export default function RequestProfile({ navigation }) {
       </Header>
       <Content>
         <HeaderView>
-          <Title>ISABEL</Title>
+          <Title>Thiago</Title>
           <Icons
             name="more-vert"
             size={30}

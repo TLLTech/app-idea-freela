@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FlatList, Text } from "react-native";
 import Icon from "@expo/vector-icons/MaterialIcons";
 
@@ -16,6 +16,7 @@ import {
   InputSearch
 } from "./styles";
 
+import api from "../../services/api";
 import Header from "../../components/Header";
 
 export default function Dashboard({ navigation }) {
@@ -24,9 +25,30 @@ export default function Dashboard({ navigation }) {
 
   const [visible, setVisible] = useState(false);
   const [visibleInput, setVisibleInput] = useState(true);
+  const [dataUsers, setDataUsers] = useState([]);
 
-  function handleProfile() {
-    navigation.navigate("RequestProfile");
+  useEffect(() => {
+    loadUsers();
+  }, []);
+
+  function loadUsers() {
+    api
+      .database()
+      .ref("users")
+      .on("value", snapshot => {
+        const listUsers = [];
+        snapshot.forEach(childItem => {
+          let item = childItem.val();
+          item["key"] = childItem.key;
+          listUsers.push(item);
+        });
+
+        setDataUsers(listUsers);
+      });
+  }
+
+  function handleProfile(key) {
+    navigation.navigate("RequestProfile", { key });
   }
 
   return (
@@ -37,13 +59,16 @@ export default function Dashboard({ navigation }) {
       <InputSearch visible={visibleInput} />
       <Content>
         <FlatList
-          data={dataList}
+          data={dataUsers}
           keyExtractor={item => String(item)}
           renderItem={({ item }) => (
-            <ContentListView key={item} onPress={handleProfile}>
+            <ContentListView
+              key={item.key}
+              onPress={() => handleProfile(item.key)}
+            >
               <ContetnListImage />
               <ContentView>
-                <Title>Nombre Tipster 1</Title>
+                <Title>{item.name}</Title>
                 <ContentStart>
                   {data.map(item => (
                     <Icon key={item} name="star" size={32} color="#ffd203" />

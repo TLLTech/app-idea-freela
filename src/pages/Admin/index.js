@@ -21,7 +21,9 @@ import {
   Title,
   ImageProfile,
   ButtonRegisterText,
-  ImageView
+  ImageView,
+  PickerCountry,
+  ContentPicker
 } from "./styles";
 
 import Header from "../../components/Header";
@@ -34,11 +36,92 @@ export default function Admin({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
 
-  const [selectSports, setSelectSports] = useState("");
+  // select
+  const [country, setCountry] = useState("");
+  const [sports, setSports] = useState("");
+  // const [selectSports, setSelectSports] = useState("");
+
+  const dataSports = [
+    "Fútbol",
+    "Baloncesto",
+    "Tenis",
+    "Balonmano",
+    "Fútbol americano",
+    "Rugby",
+    "Fútbol sala",
+    "Boxeo",
+    "UFC",
+    "Béisbol",
+    "Hockey",
+    "Golf",
+    "Caballos",
+    "Ciclismo",
+    "Motor",
+    "Dardos",
+    "Voleibol",
+    "Waterpolo",
+    "eSports"
+  ];
+
+  const dataCountry = [
+    "Argentina",
+    "Bolivia",
+    "Chile",
+    "Colombia",
+    "Costa Rica",
+    "Cuba",
+    "Ecuador",
+    "El salvador",
+    "España",
+    "Guatemala",
+    "Guinea Ecuatorial",
+    "Honduras",
+    "México",
+    "Nicaragua",
+    "Panamá",
+    "Paraguay",
+    "Perú",
+    "República dominicana",
+    "Uruguay",
+    "Venezuela"
+  ];
 
   useEffect(() => {
     getPermissionAsync();
   }, []);
+
+  async function uploadPhoto(uri) {
+    try {
+      const snapshot = await api
+        .storage()
+        .ref()
+        .child("images")
+        .child("image.jpeg")
+        .putString(uri)
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
+
+      console.log(snapshot.downloadURL);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  function uploadImage(blob) {
+    try {
+      const storageRef = api.storage().ref();
+
+      storageRef
+        .child("uploads/photo.jpg")
+        .put(blob, {
+          contentType: "image/jpeg"
+        })
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   async function getPermissionAsync() {
     if (Constants.platform.ios) {
@@ -54,32 +137,42 @@ export default function Admin({ navigation }) {
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 1
+      quality: 1,
+      base64: true
     });
 
-    console.log(result);
+    // const { height, width, type, uri } = result;
 
     if (!result.cancelled) {
-      setImage(result.uri);
+      uploadPhoto(result.base64);
     }
   }
 
   async function handleRegister() {
     setLoading(true);
+    console.log(country);
+    console.log(sports);
+
     try {
-      await api
-        .database()
-        .ref("users")
-        .set({
-          name,
-          email,
-          desc
-        });
+      const users = api.database().ref("users");
+      const chave = users.push().key;
+
+      users.child(chave).set({
+        name,
+        email,
+        desc,
+        country,
+        sports
+        // setImage
+      });
 
       setTimeout(() => {
         setName("");
         setEmail("");
         setDesc("");
+        setCountry("");
+        setSports("");
+        setImage(null);
 
         setLoading(false);
       }, 3000);
@@ -87,6 +180,7 @@ export default function Admin({ navigation }) {
       console.log(err);
     }
   }
+
   return (
     <Container>
       <Header navigation={navigation} title="ADD USER" />
@@ -101,7 +195,6 @@ export default function Admin({ navigation }) {
             placeholder="name of the profile"
             value={name}
             onChangeText={setName}
-            placeholderTextColor="#000"
           />
         </ContentInput>
         <ContentInput>
@@ -110,7 +203,6 @@ export default function Admin({ navigation }) {
             keyboardType="email-address"
             value={email}
             onChangeText={setEmail}
-            placeholderTextColor="#000"
           />
         </ContentInput>
         <ContentInput>
@@ -118,19 +210,28 @@ export default function Admin({ navigation }) {
             placeholder="Description"
             value={desc}
             onChangeText={setDesc}
-            placeholderTextColor="#000"
           />
         </ContentInput>
 
-        <Picker
-          selectedValue={setSelectSports}
-          style={{ height: 50, width: 50 }}
-          onValueChange={(itemValue, itemIndex) => setSelectSports(itemValue)}
+        <PickerCountry
+          selectedValue={country}
+          onValueChange={(itemValue, itemIndex) => setCountry(itemValue)}
         >
-          <Picker.Item label="exemplo" value="exemplo" />
-          <Picker.Item label="exemplo" value="exemplo" />
-          <Picker.Item label="exemplo" value="exemplo" />
-        </Picker>
+          <Picker.Item label="Select Country" />
+          {dataCountry.map(item => (
+            <Picker.Item key={item} label={item} value={item} />
+          ))}
+        </PickerCountry>
+
+        <PickerCountry
+          selectedValue={sports}
+          onValueChange={(itemValue, itemIndex) => setSports(itemValue)}
+        >
+          <Picker.Item label="Select Sports" />
+          {dataSports.map(item => (
+            <Picker.Item key={item} label={item} value={item} />
+          ))}
+        </PickerCountry>
 
         <ButtonRegister onPress={handleRegister}>
           {loading ? (

@@ -13,8 +13,13 @@ export const Title = styled.Text`
   text-align: center;
 `;
 
-export const Content = styled.ScrollView`
+export const Content = styled.ScrollView.attrs({
+  showsHorizontalScrollIndicator: false,
+  showsVerticalScrollIndicator: false
+})`
   align-self: center;
+  flex: 1;
+  height: 100%;
 `;
 
 export const ImageProfile = styled(RectButton)`
@@ -42,10 +47,30 @@ export const ContentInput = styled.View`
 `;
 
 export const Input = styled.TextInput.attrs({
-  placeholderTextColor: "#ccc"
+  placeholderTextColor: "#000"
 })`
   padding: 10px;
   font-size: 16px;
+`;
+
+export const ContentPicker = styled.View`
+  margin-top: 30px;
+  background: rgba(255, 255, 255, 0.5);
+  height: 50px;
+  width: 350px;
+  border-radius: 5px;
+  flex: 1;
+`;
+
+export const PickerCountry = styled.Picker`
+  margin-top: 30px;
+  background: rgba(255, 255, 255, 0.5);
+  height: 50px;
+  width: 100%;
+  flex: 1;
+  border-radius: 5px;
+  /* background: rgba(255, 255, 255, 0.5); */
+  /* flex: 1; */
 `;
 
 export const ButtonRegister = styled(RectButton)`
@@ -57,6 +82,7 @@ export const ButtonRegister = styled(RectButton)`
   align-items: center;
   align-self: center;
   margin-top: 50px;
+  margin-bottom: 20px;
 `;
 
 export const ButtonRegisterText = styled.Text`
