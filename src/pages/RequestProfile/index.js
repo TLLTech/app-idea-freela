@@ -72,6 +72,8 @@ export default function RequestProfile({ navigation }) {
             listUsers.push(item);
           });
 
+          console.log(listUsers);
+
           setName(listUsers.name);
           setDataProfile(listUsers);
         });

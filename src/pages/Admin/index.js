@@ -90,22 +90,22 @@ export default function Admin({ navigation }) {
     getPermissionAsync();
   }, []);
 
-  async function uploadPhoto(uri) {
-    try {
-      const snapshot = await api
-        .storage()
-        .ref()
-        .child("images")
-        .child("image.jpeg")
-        .putString(uri)
-        .then(res => console.log(res))
-        .catch(err => console.log(err));
+  // async function uploadPhoto(uri) {
+  //   try {
+  //     const snapshot = await api
+  //       .storage()
+  //       .ref()
+  //       .child("images")
+  //       .child("image.jpeg")
+  //       .putString(uri)
+  //       .then(res => console.log(res))
+  //       .catch(err => console.log(err));
 
-      console.log(snapshot.downloadURL);
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  //     console.log(snapshot.downloadURL);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
 
   function uploadImage(blob) {
     try {
@@ -132,6 +132,12 @@ export default function Admin({ navigation }) {
     }
   }
 
+  function handleCreateFormData(photo, body) {
+    const data = new FormData();
+
+    data.append("photo", {});
+  }
+
   async function _pickerImage() {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -144,7 +150,15 @@ export default function Admin({ navigation }) {
     // const { height, width, type, uri } = result;
 
     if (!result.cancelled) {
-      uploadPhoto(result.base64);
+      setImage(result.uri);
+
+      let storageRef = api.storage().ref();
+      let imageRef = storageRef.child("images/avatar.png");
+
+      imageRef
+        .putString(result.base64)
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
     }
   }
 
