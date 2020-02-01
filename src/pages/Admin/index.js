@@ -29,13 +29,16 @@ import {
 import Header from "../../components/Header";
 import api from "../../services/api";
 
+// window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
+// window.Blob = RNFetchBlob.polyfill.Blob;
+
 export default function Admin({ navigation }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [desc, setDesc] = useState("");
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
-  const [chaves, setChave] = useState("");
+  const [chaves, setChave] = useState(0);
   // select
   const [country, setCountry] = useState("");
   const [sports, setSports] = useState("");
@@ -87,6 +90,10 @@ export default function Admin({ navigation }) {
   ];
 
   useEffect(() => {
+    const geradorChave = api.database().ref("users");
+    const chave = geradorChave.push().key;
+    setChave(chave);
+
     getPermissionAsync();
   }, []);
 
@@ -154,24 +161,25 @@ export default function Admin({ navigation }) {
   }
 
   async function uploadImage(uri) {
-    const response = await fetch(uri);
-    const blob = await response.blob();
-
-    const ref = api
-      .storage()
-      .ref()
-      .child("images/" + chaves);
-    return ref.put(blob);
+    try {
+      const response = await fetch(uri);
+      const blob = await response.blob();
+      const ref = api
+        .storage()
+        .ref()
+        .child("images/" + chaves);
+      return ref.put(blob);
+    } catch (err) {
+      console.log(err);
+    }
 
     // const avatar = api
     //   .storage()
     //   .ref("users/")
     //   .child(chaves);
     // const mime = "image/jpeg";
-
     // RNFetchBlob.fs
     //   .readFile(uri, "base64")
-
     //   .then(data => {
     //     return RNFetchBlob.polyfill.Blob.build(data, {
     //       type: mime + ";BASE64"
@@ -198,10 +206,10 @@ export default function Admin({ navigation }) {
 
     try {
       const users = api.database().ref("users");
-      const chave = users.push().key;
-      setChave(chave);
+      // const chave = users.push().key;
+      // setChave(chave);
 
-      users.child(chave).set({
+      users.child(chaves).set({
         name,
         email,
         desc,
