@@ -35,7 +35,7 @@ export default function Admin({ navigation }) {
   const [desc, setDesc] = useState("");
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
-
+  const [chaves, setChave] = useState("");
   // select
   const [country, setCountry] = useState("");
   const [sports, setSports] = useState("");
@@ -132,12 +132,6 @@ export default function Admin({ navigation }) {
     }
   }
 
-  function handleCreateFormData(photo, body) {
-    const data = new FormData();
-
-    data.append("photo", {});
-  }
-
   async function _pickerImage() {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -150,16 +144,51 @@ export default function Admin({ navigation }) {
     // const { height, width, type, uri } = result;
 
     if (!result.cancelled) {
+      const name = Math.floor(Math.random() * 65536);
+
       setImage(result.uri);
-
-      let storageRef = api.storage().ref();
-      let imageRef = storageRef.child("images/avatar.png");
-
-      imageRef
-        .putString(result.base64)
-        .then(res => console.log(res))
-        .catch(err => console.log(err));
+      uploadImage(result.uri)
+        .then(res => console.log(res, "Deu Upload"))
+        .catch(err => console.log(err, "Deu Erro"));
     }
+  }
+
+  async function uploadImage(uri) {
+    const response = await fetch(uri);
+    const blob = await response.blob();
+
+    const ref = api
+      .storage()
+      .ref()
+      .child("images/" + chaves);
+    return ref.put(blob);
+
+    // const avatar = api
+    //   .storage()
+    //   .ref("users/")
+    //   .child(chaves);
+    // const mime = "image/jpeg";
+
+    // RNFetchBlob.fs
+    //   .readFile(uri, "base64")
+
+    //   .then(data => {
+    //     return RNFetchBlob.polyfill.Blob.build(data, {
+    //       type: mime + ";BASE64"
+    //     });
+    //   })
+    //   .then(blob => {
+    //     avatar.put(blob, { contentType: mime }).on(
+    //       "state_changed",
+    //       snapshot => {},
+    //       err => {
+    //         console.log(err);
+    //       },
+    //       () => {
+    //         console.log("Usuario cadastrado");
+    //       }
+    //     );
+    //   });
   }
 
   async function handleRegister() {
@@ -170,6 +199,7 @@ export default function Admin({ navigation }) {
     try {
       const users = api.database().ref("users");
       const chave = users.push().key;
+      setChave(chave);
 
       users.child(chave).set({
         name,
@@ -195,6 +225,7 @@ export default function Admin({ navigation }) {
     }
   }
 
+  console.log(chaves);
   return (
     <Container>
       <Header navigation={navigation} title="ADD USER" />
