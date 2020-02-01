@@ -26,6 +26,20 @@ export default function Dashboard({ navigation }) {
   const [visible, setVisible] = useState(false);
   const [visibleInput, setVisibleInput] = useState(true);
   const [dataUsers, setDataUsers] = useState([]);
+  const [image, setImage] = useState("");
+
+  function loadImageStorage() {
+    api
+      .storage()
+      .ref()
+      .child("images/")
+      .getDownloadURL()
+      .then(url => setImage(url));
+  }
+
+  useEffect(() => {
+    loadImageStorage();
+  }, []);
 
   useEffect(() => {
     loadUsers();
@@ -60,13 +74,14 @@ export default function Dashboard({ navigation }) {
       <Content>
         <FlatList
           data={dataUsers}
+          showsVerticalScrollIndicator={false}
           keyExtractor={item => String(item)}
           renderItem={({ item }) => (
             <ContentListView
               key={item.key}
               onPress={() => handleProfile(item.key)}
             >
-              <ContetnListImage />
+              <ContetnListImage source={{ uri: image }} />
               <ContentView>
                 <Title>{item.name}</Title>
                 <ContentStart>

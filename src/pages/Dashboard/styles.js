@@ -40,7 +40,7 @@ export const ContentListView = styled(RectButton)`
   margin: 20px 20px;
 `;
 
-export const ContetnListImage = styled.View`
+export const ContetnListImage = styled.Image`
   height: 100px;
   width: 100px;
   border-radius: 50px;
