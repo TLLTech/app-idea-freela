@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createDrawerNavigator, DrawerItems } from "react-navigation-drawer";
+import { createStackNavigator } from "react-navigation-stack";
 
 import SignIn from "../pages/SignIn";
 import Dashboard from "../pages/Dashboard";
@@ -18,6 +19,7 @@ import RequestProfile from "../pages/RequestProfile";
 import Contact from "../pages/Contact";
 import Logout from "../pages/Logout";
 import Admin from "../pages/Admin";
+import ReviewStar from "../pages/ReviewsStar";
 
 const CustomDrawerContentComponent = props => (
   <SafeAreaView style={{ flex: 1 }}>
@@ -63,6 +65,9 @@ export default createAppContainer(
   createSwitchNavigator({
     SignIn,
     RequestProfile,
+    ReviewStar: createStackNavigator({
+      ReviewStar
+    }),
     Dashboard: createDrawerNavigator(
       {
         Home: Dashboard,

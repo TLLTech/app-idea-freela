@@ -102,6 +102,10 @@ export default function RequestProfile({ navigation }) {
     setVisibleRele(false);
   }
 
+  function handleNavigateReviewStar() {
+    navigation.navigate("ReviewStar");
+  }
+
   return (
     <Container>
       {/* <Header navigation={navigation} title="Request Profile" /> */}
@@ -123,7 +127,7 @@ export default function RequestProfile({ navigation }) {
             <ButtonInfoText onPress={handleCloseModal}>
               Información
             </ButtonInfoText>
-            <ButtonInfoText onPress={handleCloseModal}>
+            <ButtonInfoText onPress={handleNavigateReviewStar}>
               Dar valoración
             </ButtonInfoText>
             <ButtonInfoText onPress={handleCloseModal}>

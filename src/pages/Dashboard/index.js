@@ -27,6 +27,7 @@ export default function Dashboard({ navigation }) {
   const [visibleInput, setVisibleInput] = useState(true);
   const [dataUsers, setDataUsers] = useState([]);
   const [image, setImage] = useState("");
+  const [chaves, setChaves] = useState("");
 
   function loadImageStorage() {
     api
@@ -61,9 +62,15 @@ export default function Dashboard({ navigation }) {
       });
   }
 
+  // function handleKeys() {
+  //   dataUsers.map(item => setChaves(item.key));
+  // }
+
   function handleProfile(key) {
     navigation.navigate("RequestProfile", { key });
   }
+
+  // console.log(dataUsers.key);
 
   return (
     <Container>
