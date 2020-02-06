@@ -5,13 +5,45 @@ import { RectButton } from "react-native-gesture-handler";
 import { Rating, AirbnbRating } from "react-native-ratings";
 
 import { Container, InputComment, InputView } from "./styles";
+import api from "../../services/api";
 
 export default function ReviewsStar({ navigation }) {
   const [star, setStar] = useState("");
+  const [describe, setDescribe] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const chaves = navigation.getParam("chaves");
 
   function ratingCompleted(rating) {
     console.log("Rating is " + rating);
     setStar(rating);
+  }
+
+  function handleUpdateDados() {
+    try {
+      const users = api.database().ref("users");
+      // const chave = users.push().key;
+      // setChave(chave);
+
+      users.child(chaves).set({
+        stars,
+        comment: describe
+        // setImage
+      });
+
+      setTimeout(() => {
+        // setName("");
+        // setEmail("");
+        // setDesc("");
+        // setCountry("");
+        // setSports("");
+        // setImage(null);
+
+        setLoading(false);
+      }, 3000);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
@@ -30,8 +62,13 @@ export default function ReviewsStar({ navigation }) {
       />
 
       <InputView>
-        <InputComment placeholder="Decribe tu experiencia" />
+        <InputComment
+          placeholder="Decribe tu experiencia"
+          value={describe}
+          onChange={text => setDescribe(text.target.value)}
+        />
       </InputView>
+      <Text onPress={handleUpdateDados}> ENVIAR</Text>
     </Container>
   );
 }

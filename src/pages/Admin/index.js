@@ -39,6 +39,8 @@ export default function Admin({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
   const [chaves, setChave] = useState(0);
+  const [stars, setStars] = useState(null);
+  const [comment, setComment] = useState(null);
   // select
   const [country, setCountry] = useState("");
   const [sports, setSports] = useState("");
@@ -214,7 +216,9 @@ export default function Admin({ navigation }) {
         email,
         desc,
         country,
-        sports
+        sports,
+        stars,
+        comment
         // setImage
       });
 

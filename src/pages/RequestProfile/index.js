@@ -43,8 +43,7 @@ import ModalFilterProfile from "../../components/ModalFilterProfile";
 import ModalFilterProfileComment from "../../components/ModalFilterProfileComment";
 
 export default function RequestProfile({ navigation }) {
-  const key = navigation.getParam("key");
-  console.log(key);
+  const chaves = navigation.getParam("key");
 
   const data = [1, 2, 3, 4, 5];
   const dataList = [1, 2, 3];
@@ -63,24 +62,27 @@ export default function RequestProfile({ navigation }) {
       api
         .database()
         .ref("users")
-        .child(key)
-        .once("value", snapshot => {
-          const listUsers = [];
+        .child("-Lzt7y7V0INJctWxebKn")
+        .on("value", snapshot => {
+          setDataProfile(snapshot);
+          // const listUsers = [];
+          // snapshot.forEach(childItem => {
+          //   let item = childItem.val().name;
+          //   listUsers.push(item);
+          // });
 
-          snapshot.forEach(childItem => {
-            let item = childItem.val();
-            listUsers.push(item);
-          });
-
-          console.log(listUsers);
-
-          setName(listUsers.name);
-          setDataProfile(listUsers);
+          // console.log(listUsers);
+          // setDataUsers(listUsers);
         });
     } catch (err) {
       console.log(err);
     }
   }
+
+  // var commentsRef = firebase.database().ref('post-comments/' + postId);
+  // commentsRef.on('child_changed', function(data) {
+  //   setCommentValues(postElement, data.key, data.val().text, data.val().author);
+  // });
 
   function handleGoBack() {
     navigation.navigate("Dashboard");
@@ -103,7 +105,7 @@ export default function RequestProfile({ navigation }) {
   }
 
   function handleNavigateReviewStar() {
-    navigation.navigate("ReviewStar");
+    navigation.navigate("ReviewStar", { chaves });
   }
 
   return (
