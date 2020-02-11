@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, Text } from "react-native";
+import { FlatList, Text, AsyncStorage } from "react-native";
 import Icon from "@expo/vector-icons/MaterialIcons";
 
 import {
@@ -28,6 +28,20 @@ export default function Dashboard({ navigation }) {
   const [dataUsers, setDataUsers] = useState([]);
   const [image, setImage] = useState("");
   const [chaves, setChaves] = useState("");
+
+  // async function dataUser() {
+  //   const username = await AsyncStorage.getItem("@login:username");
+  //   const email = await AsyncStorage.getItem("@login:email");
+  //   const photoUrl = await AsyncStorage.getItem("@login:imageUrl");
+
+  //   console.log(" nome -> ", username);
+  //   console.log("email -> ", email);
+  //   console.log("photo -> ", photoUrl);
+  // }
+
+  // useEffect(() => {
+  //   dataUser();
+  // }, []);
 
   function loadImageStorage() {
     api

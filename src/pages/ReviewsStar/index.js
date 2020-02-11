@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Icon from "@expo/vector-icons/MaterialIcons";
-import { View, Text } from "react-native";
+import { View, Text, ActivityIndicator } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
 import { Rating, AirbnbRating } from "react-native-ratings";
 
@@ -8,7 +8,7 @@ import { Container, InputComment, InputView } from "./styles";
 import api from "../../services/api";
 
 export default function ReviewsStar({ navigation }) {
-  const [star, setStar] = useState("");
+  const [star, setStar] = useState(0);
   const [describe, setDescribe] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -21,23 +21,18 @@ export default function ReviewsStar({ navigation }) {
 
   function handleUpdateDados() {
     try {
-      const users = api.database().ref("users");
-      // const chave = users.push().key;
-      // setChave(chave);
+      const users = api.database().ref("comments");
+      const chave = users.push().key;
 
-      users.child(chaves).set({
-        stars,
-        comment: describe
+      users.child(chave).set({
+        describe,
+        star
         // setImage
       });
 
       setTimeout(() => {
-        // setName("");
-        // setEmail("");
-        // setDesc("");
-        // setCountry("");
-        // setSports("");
-        // setImage(null);
+        setDescribe("");
+        setStar(0);
 
         setLoading(false);
       }, 3000);
@@ -68,7 +63,11 @@ export default function ReviewsStar({ navigation }) {
           onChange={text => setDescribe(text.target.value)}
         />
       </InputView>
-      <Text onPress={handleUpdateDados}> ENVIAR</Text>
+      {loading ? (
+        <ActivityIndicator size={32} color="" />
+      ) : (
+        <Text onPress={handleUpdateDados}> ENVIAR</Text>
+      )}
     </Container>
   );
 }
