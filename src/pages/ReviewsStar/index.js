@@ -9,7 +9,7 @@ import api from "../../services/api";
 
 export default function ReviewsStar({ navigation }) {
   const [star, setStar] = useState(0);
-  const [describe, setDescribe] = useState("");
+  const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
 
   const chaves = navigation.getParam("chaves");
@@ -21,21 +21,39 @@ export default function ReviewsStar({ navigation }) {
 
   function handleUpdateDados() {
     try {
-      const users = api.database().ref("comments");
-      const chave = users.push().key;
+      console.log(star);
+      console.log(comment);
 
-      users.child(chave).set({
-        describe,
-        star
-        // setImage
+      const comments = api.database().ref("comments");
+      const chave = comments.push().key;
+
+      comments.child(chave).set({
+        star,
+        comment
       });
 
       setTimeout(() => {
-        setDescribe("");
+        setComment("");
         setStar(0);
 
-        setLoading(false);
-      }, 3000);
+        navigation.goBack();
+      });
+
+      // const users = api.database().ref("comments");
+      // const chave = users.push().key;
+
+      // users.child(chave).set({
+      //   describe,
+      //   star
+      //   // setImage
+      // });
+
+      // setTimeout(() => {
+      //   setDescribe("");
+      //   setStar(0);
+
+      //   setLoading(false);
+      // }, 3000);
     } catch (err) {
       console.log(err);
     }
@@ -59,8 +77,8 @@ export default function ReviewsStar({ navigation }) {
       <InputView>
         <InputComment
           placeholder="Decribe tu experiencia"
-          value={describe}
-          onChange={text => setDescribe(text.target.value)}
+          value={comment}
+          onChangeText={setComment}
         />
       </InputView>
       {loading ? (

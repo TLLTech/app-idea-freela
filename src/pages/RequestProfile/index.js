@@ -53,6 +53,28 @@ export default function RequestProfile({ navigation }) {
   const [dataProfile, setDataProfile] = useState([]);
   const [name, setName] = useState("");
 
+  const [dataComment, setDataComment] = useState([]);
+
+  function loadDataComment() {
+    api
+      .database()
+      .ref("comments")
+      .on("value", snapshot => {
+        const listComments = [];
+        snapshot.forEach(childItem => {
+          let item = childItem.val();
+          item["key"] = childItem.key;
+          listComments.push(item);
+        });
+
+        setDataComment(listComments);
+      });
+  }
+
+  useEffect(() => {
+    loadDataComment();
+  }, []);
+
   useEffect(() => {
     loadProfile();
   }, []);
@@ -107,6 +129,8 @@ export default function RequestProfile({ navigation }) {
   function handleNavigateReviewStar() {
     navigation.navigate("ReviewStar", { chaves });
   }
+
+  console.log(dataComment);
 
   return (
     <Container>
@@ -178,7 +202,7 @@ export default function RequestProfile({ navigation }) {
           </ModalFilterProfileComment>
         </ContentFooter>
         <FlatList
-          data={dataList}
+          data={dataComment}
           keyExtractor={item => String(item)}
           renderItem={({ item }) => (
             <ListProfile>
@@ -191,8 +215,8 @@ export default function RequestProfile({ navigation }) {
                     ))}
                   </ListProfileStar>
 
-                  <ListProfileName>Nombre</ListProfileName>
-                  <ListProfileComent>Opnion del usuario</ListProfileComent>
+                  <ListProfileName>Thiago</ListProfileName>
+                  <ListProfileComent>{item.comment}</ListProfileComent>
                 </ViewList>
                 <LikeView>
                   <Icon name="thumb-up" size={25} color="#ccc" />
