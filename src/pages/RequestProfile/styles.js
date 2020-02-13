@@ -63,7 +63,7 @@ export const ListProfile = styled.View`
   margin-top: 20px;
 `;
 
-export const ListProfileImage = styled.View`
+export const ListProfileImage = styled.Image`
   height: 80px;
   width: 80px;
   border-radius: 40px;

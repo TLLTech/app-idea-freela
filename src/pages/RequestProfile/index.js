@@ -206,7 +206,7 @@ export default function RequestProfile({ navigation }) {
           keyExtractor={item => String(item)}
           renderItem={({ item }) => (
             <ListProfile>
-              <ListProfileImage />
+              <ListProfileImage source={{ uri: item.photoUrl }} />
               <ListProfileView>
                 <ViewList>
                   <ListProfileStar>
@@ -215,7 +215,7 @@ export default function RequestProfile({ navigation }) {
                     ))}
                   </ListProfileStar>
 
-                  <ListProfileName>Thiago</ListProfileName>
+                  <ListProfileName>{item.username}</ListProfileName>
                   <ListProfileComent>{item.comment}</ListProfileComent>
                 </ViewList>
                 <LikeView>

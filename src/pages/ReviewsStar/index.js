@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Icon from "@expo/vector-icons/MaterialIcons";
-import { View, Text, ActivityIndicator } from "react-native";
+import { View, Text, ActivityIndicator, AsyncStorage } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
 import { Rating, AirbnbRating } from "react-native-ratings";
 
@@ -19,18 +19,22 @@ export default function ReviewsStar({ navigation }) {
     setStar(rating);
   }
 
-  function handleUpdateDados() {
+  async function handleUpdateDados() {
     try {
-      console.log(star);
-      console.log(comment);
+      const username = await AsyncStorage.getItem("@login:username");
+      const photoUrl = await AsyncStorage.getItem("@login:imageUrl");
 
       const comments = api.database().ref("comments");
       const chave = comments.push().key;
 
       comments.child(chave).set({
         star,
-        comment
+        comment,
+        username,
+        photoUrl
       });
+
+      console.log(rating);
 
       setTimeout(() => {
         setComment("");
@@ -79,6 +83,8 @@ export default function ReviewsStar({ navigation }) {
           placeholder="Decribe tu experiencia"
           value={comment}
           onChangeText={setComment}
+          onSubmitEditing={handleUpdateDados}
+          returnKeyType="send"
         />
       </InputView>
       {loading ? (

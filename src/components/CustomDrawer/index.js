@@ -30,7 +30,7 @@ export default function CustomDrawer({ ...props }) {
 
   useEffect(() => {
     loadDataUser();
-  }, []);
+  });
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
