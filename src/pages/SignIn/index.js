@@ -2,14 +2,18 @@ import React, { useState } from "react";
 import { Text, AsyncStorage } from "react-native";
 import * as Google from "expo-google-app-auth";
 
+// images
 import google_icon from "../../img/google-icon.png";
+import logo from "../../img/TWhite.png";
 
+// Styles-Components
 import {
   Container,
   ButtonSignIn,
   ButtonImage,
   ButtonSignInText,
-  TextInit
+  TextInit,
+  ImageView
 } from "./styles";
 
 const IOS_CLIENT_ID =
@@ -66,6 +70,7 @@ export default function SignIn({ navigation }) {
   return (
     <Container>
       <TextInit>Welcome Message</TextInit>
+      <ImageView source={logo} />
       <ButtonSignIn onPress={signWithGoogle}>
         <ButtonImage source={google_icon} />
         <ButtonSignInText>BEGIN SESSION</ButtonSignInText>
